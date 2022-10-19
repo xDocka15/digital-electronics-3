@@ -106,9 +106,20 @@ GitHub is a code hosting platform for collaboration and version control. GitHub 
    * See Arduino Uno [pinout](https://docs.arduino.cc/static/6ec5e4c2a6c0e9e46389d4f6dc924073/2f891/Pinout-UNOrev3_latest.png)
    * See Arduino Docs for [GPIO / Pin Management](https://docs.arduino.cc/learn/starting-guide/getting-started-arduino#gpio--pin-management)
 
-4. Use [breadboard](https://computers.tutsplus.com/tutorials/how-to-use-a-breadboard-and-build-a-led-circuit--mac-54746), wires, resistor, and a second LED. Connect in to a GPIO pin PB0 in active-low way and modify your code to blink both LEDs.
+4. Use breadboard, wires, resistor, and a second LED. Connect in to a GPIO pin PB0 in active-low way and modify your code to blink both LEDs.
 
-   ![active_low_high_led](images/gpio_high_low.png)
+   * See [breadboard description](https://computers.tutsplus.com/tutorials/how-to-use-a-breadboard-and-build-a-led-circuit--mac-54746)
+   * See LED resistor value [calculation](https://electronicsclub.info/leds.htm)
+   * Connection of external LED in active-low way:
+
+      ![schema od active-low LED](images/schema_led_active-low.png)
+
+      > Picture was created by [Autodesk Tinkercad](https://www.tinkercad.com/)
+      >
+
+   * General connections of LEDs and push buttons in active-low and active-high way:
+
+      ![active_low_high_led](images/gpio_high_low2.png)
 
 5. Copy/paste [report template](https://raw.githubusercontent.com/tomas-fryza/digital-electronics-2/master/labs/01-tools/report.md) to your `LAB1-BLINK_ARDUINO > test > README` file. Rename this file to `README.md`, ie add the extension `.md`.
 
