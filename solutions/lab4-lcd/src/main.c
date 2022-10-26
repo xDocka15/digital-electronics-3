@@ -19,8 +19,8 @@
  *     D3:0 - NC (Data bits 3..0, Not Connected)
  *     D4   - PD4 (Data bit 4)
  *     D5   - PD5 (Data bit 5)
- *     D6   - PD6 (Data bit 3)
- *     D7   - PD7 (Data bit 2)
+ *     D6   - PD6 (Data bit 6)
+ *     D7   - PD7 (Data bit 7)
  *     A+K  - Back-light enabled/disabled by PB2
  * 
  **********************************************************************/
@@ -70,15 +70,20 @@ int main(void)
 
     lcd_command(1<<LCD_CGRAM);       // Set addressing to CGRAM (Character Generator RAM)
                                      // ie to individual lines of character patterns
-    for (uint8_t i = 0; i < 8; i++)  // Copy new character patterns line by line to CGRAM
+    for (uint8_t i = 0; i < 16; i++)  // Copy new character patterns line by line to CGRAM
         lcd_data(customChar[i]);
     lcd_command(1<<LCD_DDRAM);       // Set addressing back to DDRAM (Display Data RAM)
                                      // ie to character codes
+    // Display two custom characters
+    lcd_gotoxy(13, 1);
+    lcd_putc(0x00);
+    lcd_putc(0x01);
 
     // Put string(s) on LCD screen
     // lcd_gotoxy(6, 1);
     // lcd_puts("LCD Test");
     // lcd_putc('!');
+
     lcd_gotoxy(1, 0);
     lcd_puts("00:00.0");
 
@@ -90,11 +95,6 @@ int main(void)
 
     lcd_gotoxy(11, 1);
     lcd_puts("c");
-
-    // Display two custom characters
-    lcd_gotoxy(13, 1);
-    lcd_putc(0x00);
-    lcd_putc(0x01);
 
     // Set back light at PB2
     GPIO_mode_output(&DDRB, PB2);

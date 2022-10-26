@@ -97,7 +97,7 @@ GitHub is a code hosting platform for collaboration and version control. GitHub 
 
 1. Run Visual Studio Code, follow these [instructions](https://github.com/tomas-fryza/digital-electronics-2/wiki/How-to-use-AVR-template-with-PlatformIO) and install the PlatformIO plugin.
 
-2. Create a new project `lab1-blink_arduino`, select `Arduino Uno` board, and change project location to your local repository folder `Documents/digital-electronics-2`. Copy/paste [blink example code](https://raw.githubusercontent.com/tomas-fryza/digital-electronics-2/master/examples/blink_arduino/main.cpp) from this repository to your `LAB1-BLINK_ARDUINO > src > main.cpp` file.
+2. Create a new project `lab1-blink_arduino`, select `Arduino Uno` board, and change project location to your local repository folder `Documents/digital-electronics-2`. Copy/paste [blink example code](https://raw.githubusercontent.com/tomas-fryza/digital-electronics-2/master/examples/blink_arduino/main.c) from this repository to your `LAB1-BLINK_ARDUINO > src > main.cpp` file.
 
    Rename source file `main.cpp` to `main.c`, ie change the extension to `.c`.
 
@@ -114,12 +114,15 @@ GitHub is a code hosting platform for collaboration and version control. GitHub 
 
       ![schema od active-low LED](images/schema_led_active-low.png)
 
-      > Picture was created by [Autodesk Tinkercad](https://www.tinkercad.com/)
+      > Picture was created by [Autodesk Tinkercad](https://www.tinkercad.com/).
       >
 
    * General connections of LEDs and push buttons in active-low and active-high way:
 
       ![active_low_high_led](images/gpio_high_low2.png)
+      
+      > Picture was created by [EasyEDA](https://easyeda.com/).
+      >
 
 5. Copy/paste [report template](https://raw.githubusercontent.com/tomas-fryza/digital-electronics-2/master/labs/01-tools/report.md) to your `LAB1-BLINK_ARDUINO > test > README` file. Rename this file to `README.md`, ie add the extension `.md`.
 
