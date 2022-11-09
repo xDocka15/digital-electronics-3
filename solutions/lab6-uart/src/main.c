@@ -36,7 +36,7 @@ int main(void)
 {
     // Initialize USART to asynchronous, 8N1, 9600
     uart_init(UART_BAUD_SELECT(9600, F_CPU));
-    
+
     // Configure 16-bit Timer/Counter1 to transmit UART data
     // Set prescaler to 262 ms and enable overflow interrupt
     TIM1_overflow_262ms();
@@ -46,18 +46,8 @@ int main(void)
     sei();
 
     // Put strings to ringbuffer for transmitting via UART
-    // uart_puts("Print \tone \tline... ");
-    // uart_puts("done\r\n");
-
-    uart_puts("\033[4;32m");        // 4: underline style; 32: green foreground
-    uart_puts("This is all Green and Underlined\r\n");
-    uart_puts("\033[4;31m");        // 4: underline style; 32: green foreground
-    uart_puts("ERROR\r\n");
-    uart_puts("\033[0m");           // 0: reset all attributes
-    uart_puts("This is Normal text again\r\n");
-
-    uart_puts("Chr \tDec \tHx \tBin \t\tEven \r\n");
-    uart_puts("---------------------------------------------\r\n");
+    uart_puts("Print one line... \r\n");
+    uart_puts("Print one line... \r\n");
 
     // Infinite loop
     while (1)
@@ -81,7 +71,7 @@ ISR(TIMER1_OVF_vect)
     // uart_puts("Paris\r\n");
 
     uint8_t value;
-    uint8_t even_parity = 0;
+    uint8_t even = 0;
     char string[8];  // String for converted numbers by itoa()
 
     value = uart_getc();
@@ -92,31 +82,94 @@ ISR(TIMER1_OVF_vect)
         uart_puts("\t");
         itoa(value, string, 10);
         uart_puts(string);
-        uart_puts("\t0x");
-        itoa(value, string, 16);
-        uart_puts(string);
-        uart_puts("\t0b");
+
+        uart_puts("\t0b ");
         itoa(value, string, 2);
         uart_puts(string);
 
-        // Cycle through all bits
+        // Get the Even parity
+        // Even = b0 xor b1 xor .... xor b7
+        // value = b7 b6 b5 b4 b3 b2 b1 b0
+        // Cycle 8 times:
+        //   -- extract just one bit: LSB
+        //   -- apply binary mask and logic AND
+        //   -- even = even xor b0
+        //   -- shift even to the right
         for (uint8_t i = 0; i < 8; i++) {
-                    // XOR  Mask LSB only
-            even_parity ^= (value & 0x01);
-            value >>= 1;  // Shift all bits to rigth
+            even = even ^ (value & 0x01);
+            value = value >> 1;
         }
-        uart_puts("\t");
-        itoa(even_parity, string, 10);
+        uart_puts("\tEven: ");
+        itoa(even, string, 10);
         uart_puts(string);
+
         uart_puts("\r\n");
     }
 }
 
 
 
+/*
+
+
+    uart_puts("\x1b[4;32m");  // 4: underline style; 32: green foreground
+    uart_puts("This is all Green and Underlined\r\n");
+    uart_puts("\x1b[4;31m");  // 4: underline style; 31: red foreground
+    uart_puts("ERROR\r\n");
+    uart_puts("\x1b[0m");     // 0: reset all attributes
+    uart_puts("This is Normal text again\r\n");
+
+    uart_puts("Chr \tDec \tHx \tBin \t\tEven \r\n");
+    uart_puts("---------------------------------------------\r\n");
+
+
+
+    uint8_t value;
+    uint8_t even_parity = 0;
+    char string[8];  // String for converted numbers by itoa()
+
+    value = uart_getc();
+    if (value != '\0') {  // Data available from UART
+        // Display ASCII code of received character
+        // WRITE YOUR CODE HERE
+        
+        // Received character
+        uart_putc(value);
+        
+        // ASCII code in decimal
+        uart_puts("\t");
+        itoa(value, string, 10);
+        uart_puts(string);
+        
+        // ASCII code in hexadecimal
+        uart_puts("\t0x");
+        itoa(value, string, 16);
+        uart_puts(string);
+
+        // ASCII code in binary
+        uart_puts("\t0b");
+        itoa(value, string, 2);
+        uart_puts(string);
+
+        // Cycle through all bits and calculate Even parity
+        for (uint8_t i = 0; i < 8; i++) {
+                    // XOR  Mask LSB only
+            even_parity ^= (value & 0x01);
+            value >>= 1;  // Shift all bits to right
+        }
+        
+        // Display Even parity
+        uart_puts("\t");
+        itoa(even_parity, string, 10);
+        uart_puts(string);
+        
+        // Add end-of-the-line
+        uart_puts("\r\n");
+    }
+
+*/
 
 
 
     // uart_init(UART_BAUD_SELECT(115200, F_CPU));
-
     // uart_puts("AT+GMR\r\n");

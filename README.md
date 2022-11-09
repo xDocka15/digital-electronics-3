@@ -6,12 +6,13 @@ The repository contains AVR lab exercises for bachelor course [*Digital Electron
 
 1. [Git version-control system, AVR tools](labs/01-tools)
 2. [Control of GPIO pins](labs/02-gpio)
-3. [Interrupts and polling](labs/03-interrupts)
+3. [Timers](labs/03-interrupts)
 4. [Liquid Crystal Display (LCD)](labs/04-lcd)
 5. [Analog-to-Digital Converter (ADC)](labs/05-adc)
 6. [Universal Asynchronous Receiver-Transmitter (UART)](labs/06-uart)
+7. [Inter-Integrated Circuits (I2C)](labs/07-i2c)
+
 <!--
-8. [I2C/TWI serial communication](labs/08-i2c)
 9. [C project: General instructions](labs/project)
 10. (Self-study) [Combining C and assembly language](labs/09-asm)
 -->
@@ -20,7 +21,6 @@ The repository contains AVR lab exercises for bachelor course [*Digital Electron
 
 * [Basic C template, blink a LED](examples/blink_arduino/)
 * [Project documentation with Doxygen](examples/doxygen)
-* [C libraries](examples/library)
 * [Autonomous slot car](examples/slot-car)
 
 ## Components
@@ -33,8 +33,8 @@ The following hardware and software components are mainly used in the lab.
 * Boards and shields:
   * [Schematics](https://oshwlab.com/tomas.fryza/arduino-shields)
   * [Arduino Uno](https://arduino-shop.cz/arduino/1353-klon-arduino-uno-r3-atmega328p-ch340-mini-usb-1466635561.html) board
-  * [Multi-function shield](https://www.gme.cz/experiment-shield-pro-arduino) with four LEDs, three push buttons, four seven-segment displays, and others
   * [LCD and keypad shield](https://arduino-shop.cz/en/arduino-platform/899-arduino-lcd-shield-1420670167.html) with LCD and five push buttons
+  * [Multi-function shield](https://www.gme.cz/experiment-shield-pro-arduino) with four LEDs, three push buttons, four seven-segment displays, and others
 
 * Sensors and modules:
   * [DHT12](https://arduino-shop.cz/arduino/1977-i2c-teplomer-a-vlhkomer-dht12-digitalni.html) I2C humidity and temperature sensor: [data sheet](docs/dht12_manual.pdf)

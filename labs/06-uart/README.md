@@ -13,7 +13,7 @@ The purpose of the laboratory exercise is to understand serial asynchronous comm
 
 ### Table of contents
 
-* [Preparation tasks](#preparation)
+* [Pre-Lab preparation](#preparation)
 * [Part 1: Synchronize repositories and create a new folder](#part1)
 * [Part 2: Basics of UART communication](#part2)
 * [Part 3: Communication between Arduino board and computer](#part3)
@@ -25,7 +25,7 @@ The purpose of the laboratory exercise is to understand serial asynchronous comm
 
 ## Pre-Lab preparation
 
-1. Use schematic of [Arduino Uno](https://oshwlab.com/tomas.fryza/arduino-shields) and find out on which Arduino Uno pins the UART transmitter (Tx) and receiver (Rx) are located.
+1. Use schematic of [Arduino Uno](https://oshwlab.com/tomas.fryza/arduino-shields) board and find out on which Arduino Uno pins the UART transmitter (Tx) and receiver (Rx) are located.
 
 2. Remind yourself, what an [ASCII table](http://www.asciitable.com/) is. What codes are defined for control characters `Esc`, `Space`, `Tab`, and `Enter`?
 
@@ -35,8 +35,7 @@ The purpose of the laboratory exercise is to understand serial asynchronous comm
 
 1. Run Git Bash (Windows) of Terminal (Linux), navigate to your working directory, and update local repository.
 
-   > Useful bash and git commands are: `cd` - Change working directory. `mkdir` - Create directory. `ls` - List information about files in the current directory. `pwd` - Print the name of the current working directory. `git status` - Get state of working directory and staging area. `git pull` - Update local repository and working folder.
-   >
+   > **Help:** Useful bash and git commands are `cd` - Change working directory. `mkdir` - Create directory. `ls` - List information about files in the current directory. `pwd` - Print the name of the current working directory. `git status` - Get state of working directory and staging area. `git pull` - Update local repository and working folder.
 
 2. Run Visual Studio Code and create a new PlatformIO project `lab6-uart` for `Arduino Uno` board and change project location to your local repository folder `Documents/digital-electronics-2`.
 
@@ -72,7 +71,6 @@ One of the most common UART formats is called **9600 8N1**, which means 8 data b
 > **Answer:** 8N1 means that 8 data bits are transmitted, no parity is used, and the number of stop bits is one. Because the frame always starts with a low level start bit and the order of the data bits is from LSB to MSB, the data transmitted bu UART is therefore `0100_0101` (0x45) and according to the [ASCII](http://www.asciitable.com/) (American Standard Code for Information Interchange) table, it represents the letter `E`.
 >
 > The figure further shows that the bit period, i.e. the duration of one bit, is 104&nbsp;us. The symbol rate of the communication is thus 1/104e-6 = 9615, i.e. approximately 9600&nbsp;Bd.
->
 
 <a name="part3"></a>
 
@@ -80,7 +78,7 @@ One of the most common UART formats is called **9600 8N1**, which means 8 data b
 
 In the lab, we are using [UART library](http://www.peterfleury.epizy.com/avr-software.html) developed by Peter Fleury.
 
-1. Use online manual of UART library and add the input parameters and description of the following functions.
+1. Use online manual of UART library and add input parameters and description of the following functions.
 
    | **Function name** | **Function parameter(s)** | **Description** | **Example** |
    | :-- | :-- | :-- | :-- |
@@ -105,8 +103,8 @@ In the lab, we are using [UART library](http://www.peterfleury.epizy.com/avr-sof
    │   └── timer.h
    ├── lib
    │   └── uart
-   |       ├── uart.c
-   |       └── uart.h
+   │       ├── uart.c
+   │       └── uart.h
    └── src
        └── main.c
    ```
@@ -118,17 +116,15 @@ In the lab, we are using [UART library](http://www.peterfleury.epizy.com/avr-sof
    ![PuTTY](images/screenshot_putty_type.png)
    ![PuTTY](images/screenshot_putty_config.png)
 
-   > WARNING: Before Arduino board re-programming process, PuTTY app must be closed!
+   > **Warning:** Before Arduino board re-programming process, PuTTY app must be closed!
    >
    > In SimulIDE, right click to ATmega328 package and select **Open Serial Monitor**. In this window you can receive data from the microcontroller, but also send them back.
-   >
 
 6. Configure Timer1 to overflow four times per second and transmit UART string `Paris`. Use Logic Analyzer to visualize and decode transmitting strings.
 
    ![Logic analyzer -- Paris](images/analyzer_paris.png)
 
-   > Note that, you have to have a [Saleae logic analyzer](https://www.saleae.com/) or [similar](https://www.amazon.com/KeeYees-Analyzer-Device-Channel-Arduino/dp/B07K6HXDH1/ref=sr_1_6?keywords=saleae+logic+analyzer&qid=1667214875&qu=eyJxc2MiOiI0LjIyIiwicXNhIjoiMy45NSIsInFzcCI6IjMuMDMifQ%3D%3D&sprefix=saleae+%2Caps%2C169&sr=8-6), and to download and install [Saleae Logic 1](https://support.saleae.com/logic-software/legacy-software/older-software-releases#logic-1-x-download-links) software on your computer.
-   >
+   > **Note:** You have to have a [Saleae logic analyzer](https://www.saleae.com/) or [similar](https://www.amazon.com/KeeYees-Analyzer-Device-Channel-Arduino/dp/B07K6HXDH1/ref=sr_1_6?keywords=saleae+logic+analyzer&qid=1667214875&qu=eyJxc2MiOiI0LjIyIiwicXNhIjoiMy45NSIsInFzcCI6IjMuMDMifQ%3D%3D&sprefix=saleae+%2Caps%2C169&sr=8-6), and to download and install [Saleae Logic 1](https://support.saleae.com/logic-software/legacy-software/older-software-releases#logic-1-x-download-links) software on your computer.
 
 7. Use `uart_getc` function and display the ASCII code of received character in decimal, hexadecimal, and binary. You can use Timer1 overflow handler to perform such receiver. Fill the table with selected keys.
 
@@ -164,27 +160,26 @@ In the lab, we are using [UART library](http://www.peterfleury.epizy.com/avr-sof
 
    | **ESP-01 pin** | **Arduino Uno pin** | **ESP-01 pin** | **Arduino Uno pin** |
    | :-: | :-: | :-: | :-: |
-   | U0TXD | Rx (pin 0) | GND | GND |
+   | U0TXD | Tx (pin 1) | GND | GND |
    | CHIP_EN | 3.3V | GPIO2 | Not connected |
    | EXT_RSTB | Not connected | GPIO0 | Not connected |
-   | 3.3V | 3.3V | U0RXD | Tx (pin 1) |
+   | 3.3V | 3.3V | U0RXD | Rx (pin 0) |
 
    ![ESP8266 interconnection](images/cv_esp8266_foto_description.jpg)
 
-   In your code, initialize UART to 8N1 mode, 115200 Bd and in Timer1 overflow transmit one of the following AT commands; make sure command string ends by `\r\n`. Use Logic analyzer to read the response of Wi-Fi module.
+   In your code, disable interruptions by commenting `// sei();` function. The reason is the micro controller will not affect UART lines and whole communication will be done between Serial Monitor and Wi-Fi module. To use PlatfomIO Serial Monitor, add the following command to `platformio.ini` project configuration file: `monitor_speed = 115200`. Compile and upload the application. Test the following AT commands and see the module's responses. If needed, use Logic analyzer to read the response of Wi-Fi module.
 
    * `AT` - Check the communication with module
    * `AT+CWMODE=1` - Set the module mode
    * `AT+GMR` - Get the module version
    * `AT+CWLAPOPT=1,6` - Limit the list to `rssi` and `ssid` parameters only
-   * `AT+CWLAP` - List `ssid` and `rssi` parameters of available Wi-Fi APs
+   * `AT+CWLAP` - List `ssid` and `rssi` parameters of available Wi-Fi APs (takes few seconds)
 
    The complete list and description of all AT commands are available [here](https://github.com/tomas-fryza/digital-electronics-2/blob/master/docs/esp8266_at_instruction_set.pdf). To avoid a conflict with Wi-Fi module, remove the Tx and Rx wires when uploading the firmware and put them back after the upload is complete.
 
 9. When you finish, always synchronize the contents of your working folder with the local and remote versions of your repository. This way you are sure that you will not lose any of your changes. To do that, use **Source Control (Ctrl+Shift+G)** in Visual Studio Code or git commands.
 
-   > Useful git commands are: `git status` - Get state of working directory and staging area. `git add` - Add new and modified files to the staging area. `git commit` - Record changes to the local repository. `git push` - Push changes to remote repository. `git pull` - Update local repository and working folder. Note that, a brief description of useful git commands can be found [here](https://github.com/tomas-fryza/digital-electronics-1/wiki/Useful-Git-commands) and detailed description of all commands is [here](https://github.com/joshnh/Git-Commands).
-   >
+   > **Help:** Useful git commands are `git status` - Get state of working directory and staging area. `git add` - Add new and modified files to the staging area. `git commit` - Record changes to the local repository. `git push` - Push changes to remote repository. `git pull` - Update local repository and working folder. Note that, a brief description of useful git commands can be found [here](https://github.com/tomas-fryza/digital-electronics-1/wiki/Useful-Git-commands) and detailed description of all commands is [here](https://github.com/joshnh/Git-Commands).
 
 <a name="experiments"></a>
 
@@ -193,21 +188,52 @@ In the lab, we are using [UART library](http://www.peterfleury.epizy.com/avr-sof
 1. Use [ANSI Escape Sequences](https://gist.github.com/fnky/458719343aabd01cfb17a3a4f7296797) and modify color and format of transmitted strings according to the following code. Try other formatting styles. Because the PlatformIO Serial Monitor does not support the ANSI Excape Sequences, you have to use PuTTY application.
 
    ```c
-   /* Color/formatting sequence always starts by "\033[" and ends by "m" strings.
-   * One or more formatting codes "#", separated by ";" can be used within
-   * one line, such as:
-   *    \033[#m      or
-   *    \033[#;#m    or
-   *    \033[#;#;#m  etc. */
-   uart_puts("\033[4;32m");        // 4: underline style; 32: green foreground
+   /* 
+    * Color/formatting sequence is prefixed with `Escape` (`\x1b` in hexadecimal),
+    * followed by opening square bracket `[`, commands delimited by semi colon `;`
+    * and ended by `m` character.
+    *
+    * Examples:
+    *   \x1b[1;31m  - Set style to bold, red foreground
+    *   \x1b[4,32m  - Set underline style, green foreground
+    *   \x1b[0m     - Reset all attributes
+    */
+   uart_puts("\x1b[4;32m");  // 4: underline style; 32: green foreground
    uart_puts("This is all Green and Underlined\r\n");
-   uart_puts("\033[0m");           // 0: reset all attributes
+   uart_puts("\x1b[0m");     // 0: reset all attributes
    uart_puts("This is Normal text again\r\n");
    ```
 
 2. Program a piece of code to calculate even parity bit from received value.
 
-   > Note: Keep UART strings as short as possible. But if you need to transmit a larger amount of data, it is necessary to increase the size of the transmit/receive buffer in the `uart.h` file, eg to 128.
+   ![Flowchart for Even parity](images/flowchart_parity_algo.png)
+
+3. Program a software UART transmitter (emulated UART) that will be able to generate UART data on any output pin of the ATmega328P microcontroller. Let the bit rate be approximately 9600&nbsp;Bd and do not use the delay library. Also consider the possibility of calculating the parity bit. Verify the UART communication with logic analyzer or oscilloscope.
+
+4. Program an interactive console that communicates between ATmega328P and the computer (PuTTY application) via UART. Let the main screen of the console is as follows:
+
+   ```bash
+   --- Interactive UART console ---
+   1: read current Timer/counter1 value
+   2: reset Timer/counter1
+   > 
+   ```
+
+   After pressing the '1' key on computer keyboard, ATmega328P receives ASCII code of the key and sends the current Timer1 value back to PuTTY. After pressing the '2' key, ATmega328P resets Timer1 value, etc. Use ANSI escape sequences to highlight information in PuTTY console.
+
+   ```c
+   uint8_t value;
+   ...
+   value = uart_getc();
+   if (value != '\0') {     // Data available from UART
+       if (value == `1`) {  // Key `1` received
+           ...
+       }
+   }
+   ...
+   ```
+
+   > **Warning:** Keep UART strings as short as possible. But if you need to transmit a larger amount of data, it is necessary to increase the size of the transmit/receive buffer in the `uart.h` file, eg to 128.
    >
    >```c
    >/** @brief  Size of the circular receive buffer, must be power of 2
@@ -228,45 +254,20 @@ In the lab, we are using [UART library](http://www.peterfleury.epizy.com/avr-sof
    ># define UART_TX_BUFFER_SIZE 128
    >#endif
    >```
-   >
-
-3. Program a software UART transmitter (emulated UART) that will be able to generate UART data on any output pin of the ATmega328P microcontroller. Let the bit rate be approximately 9600&nbsp;Bd and do not use the delay library. Also consider the possibility of calculating the parity bit. Verify the UART communication with logic analyzer or oscilloscope.
-
-4. Program an interactive console that communicates between ATmega328P and the computer (PuTTY application) via UART. Let the main screen of the console is as follows:
-
-   ```bash
-   --- Interactive UART console ---
-   1: read current Timer/counter1 value
-   2: reset Timer/counter1
-   > 
-   ```
-
-   After pressing the '1' key on computer keyboard, ATmega328P receives ASCII code of the key and sends the current Timer1 value back to PuTTY. After pressing the '2' key, ATmega328P resets Timer1 value, etc. Use ANSI escape sequences to highlight information within PuTTY console.
-
-   ```c
-   uint8_t value;
-   ...
-   value = uart_getc();
-   if (value != '\0') {     // Data available from UART
-       if (value == `1`) {  // Key `1` received
-           ...
-       }
-   }
-   ...
 
 <a name="report"></a>
 
 ## Post-Lab report
 
-*Complete all parts of `LAB4-LCD > test > README.md` file (see Part 1.4) in Czech, Slovak, or English, push it to your GitHub repository, and submit a link to this file via [BUT e-learning](https://moodle.vutbr.cz/). The deadline for submitting the task is the day before the next computer exercise.*
+*Complete all parts of `LAB6-UART > test > README.md` file (see Part 1.4) in Czech, Slovak, or English, push it to your GitHub repository, and submit a link to this file via [BUT e-learning](https://moodle.vutbr.cz/). The deadline for submitting the task is the day before the next computer exercise.*
 
-*Vypracujte všechny části ze souboru `LAB4-LCD > test > README.md` (viz Část 1.4) v českém, slovenském, nebo anglickém jazyce, uložte je na váš GitHub repozitář a odevzdejte link na tento soubor prostřednictvím [e-learningu VUT](https://moodle.vutbr.cz/). Termín odevzdání úkolu je den před dalším počítačovým cvičením.*
+*Vypracujte všechny části ze souboru `LAB6-UART > test > README.md` (viz Část 1.4) v českém, slovenském, nebo anglickém jazyce, uložte je na váš GitHub repozitář a odevzdejte link na tento soubor prostřednictvím [e-learningu VUT](https://moodle.vutbr.cz/). Termín odevzdání úkolu je den před dalším počítačovým cvičením.*
 
 <a name="references"></a>
 
 ## References
 
-1. Tomas Fryza. [Schematic of Arduino Uno](https://oshwlab.com/tomas.fryza/arduino-shields)
+1. Tomas Fryza. [Schematic of Arduino Uno](https://oshwlab.com/tomas.fryza/arduino-shields) board
 
 2. [ASCII Table](http://www.asciitable.com/)
 

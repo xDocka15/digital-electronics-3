@@ -38,8 +38,7 @@ The purpose of the laboratory exercise is to understand analog-to-digital conver
 
 1. Run Git Bash (Windows) of Terminal (Linux), navigate to your working directory, and update local repository.
 
-   > Useful bash and git commands are: `cd` - Change working directory. `mkdir` - Create directory. `ls` - List information about files in the current directory. `pwd` - Print the name of the current working directory. `git status` - Get state of working directory and staging area. `git pull` - Update local repository and working folder.
-   >
+   > **Help:** Useful bash and git commands are `cd` - Change working directory. `mkdir` - Create directory. `ls` - List information about files in the current directory. `pwd` - Print the name of the current working directory. `git status` - Get state of working directory and staging area. `git pull` - Update local repository and working folder.
 
 2. Run Visual Studio Code and create a new PlatformIO project `lab5-adc` for `Arduino Uno` board and change project location to your local repository folder `Documents/digital-electronics-2`.
 
@@ -64,7 +63,7 @@ The purpose of the laboratory exercise is to understand analog-to-digital conver
    | Select | 3,181 | 741 |  |  |
    | none   | 5 | 1023 |  |  |
 
-   ![SimulIDE](images/screenshot_simulide_lcd_probe.png)
+   ![SimulIDE](images/screenshot_simulide_voltage_divider.png)
 
 <a name="part3"></a>
 
@@ -76,7 +75,7 @@ An [Analog to Digital Converter](https://components101.com/articles/analog-to-di
 
 The internal ADC module of ATmega328P can be used in relatively slow and not extremely accurate data acquisitions. But it is a good choice in most situations, like reading sensor data or push button signals.
 
-AVR ADC module has 10-bit resolution with +/-2LSB accuracy. It means it returns a 10-bit integer value, i.e. a range of 0 to 1023. It can convert data at up to 76.9&nbsp;kSPS, which goes down when higher resolution is used. We mentioned that there are 8 ADC channels available on pins, but there are also three internal channels that can be selected with the multiplexer decoder. These are temperature sensor (channel 8), bandgap reference (1.1V) and GND (0V) [[4]](https://embedds.com/adc-on-atmega328-part-1/).
+AVR's ADC module has 10-bit resolution with +/-2LSB accuracy. It means it returns a 10-bit integer value, i.e. a range of 0 to 1023. It can convert data at up to 76.9&nbsp;kSPS, which goes down when higher resolution is used. We mentioned that there are 8 ADC channels available on pins, but there are also three internal channels that can be selected with the multiplexer decoder. These are temperature sensor (channel 8), bandgap reference (1.1V) and GND (0V) [[4]](https://embedds.com/adc-on-atmega328-part-1/).
 
 1. Convert the voltages from the previous part according to the following equation. Note that reference is Vref=5V and number of bits for analog to digital conversion is n=10. Write the values to **ADC value (calculated)** column in the table from Part 2.1.
 
@@ -103,9 +102,9 @@ AVR ADC module has 10-bit resolution with +/-2LSB accuracy. It means it returns 
    │   └── timer.h
    ├── lib
    │   └── lcd
-   |       ├── lcd.c
-   |       ├── lcd.h
-   |       └── lcd_definitions.h
+   │       ├── lcd.c
+   │       ├── lcd.h
+   │       └── lcd_definitions.h
    └── src
        └── main.c
    ```
@@ -121,6 +120,8 @@ AVR ADC module has 10-bit resolution with +/-2LSB accuracy. It means it returns 
    ![adc timing](images/adc_timing.png)
 
    Use single conversion mode and start the AD conversion every 33 ms by Timer/Counter1 overflow. When analog to digital conversion is finished, read the voltage level on push buttons and display it in decimal at LCD display position `a`. Display the same value in hexadecimal at position `b`. Note that you can use the 16-bit `ADC` variable (declared in the AVR library) to read the value from both converter registers ADCH:L.
+
+   ![LCD init screenshot](images/screenshot_lcd_adc_init.png)
 
    ```c
    /**********************************************************************
@@ -139,7 +140,7 @@ AVR ADC module has 10-bit resolution with +/-2LSB accuracy. It means it returns 
    }
    ```
 
-   Use standard C library and display converted value as string. Build the application and upload it to Arduino Uno board
+   Use standard C library and display converted value as string. Build the application and upload it to Arduino Uno board.
 
    ![LCD-keypad shield](images/arduino_uno_adc.jpg)
 
@@ -151,8 +152,7 @@ AVR ADC module has 10-bit resolution with +/-2LSB accuracy. It means it returns 
 
 9. When you finish, always synchronize the contents of your working folder with the local and remote versions of your repository. This way you are sure that you will not lose any of your changes. To do that, use **Source Control (Ctrl+Shift+G)** in Visual Studio Code or git commands.
 
-   > Useful git commands are: `git status` - Get state of working directory and staging area. `git add` - Add new and modified files to the staging area. `git commit` - Record changes to the local repository. `git push` - Push changes to remote repository. `git pull` - Update local repository and working folder. Note that, a brief description of useful git commands can be found [here](https://github.com/tomas-fryza/digital-electronics-1/wiki/Useful-Git-commands) and detailed description of all commands is [here](https://github.com/joshnh/Git-Commands).
-   >
+   > **Help:** Useful git commands are `git status` - Get state of working directory and staging area. `git add` - Add new and modified files to the staging area. `git commit` - Record changes to the local repository. `git push` - Push changes to remote repository. `git pull` - Update local repository and working folder. Note that, a brief description of useful git commands can be found [here](https://github.com/tomas-fryza/digital-electronics-1/wiki/Useful-Git-commands) and detailed description of all commands is [here](https://github.com/joshnh/Git-Commands).
 
 <a name="experiments"></a>
 

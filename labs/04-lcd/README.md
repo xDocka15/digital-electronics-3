@@ -19,7 +19,7 @@ The purpose of the laboratory exercise is to understand the serial control of Hi
 
 * [Pre-Lab preparation](#preparation)
 * [Part 1: Synchronize repositories and create a new project](#part1)
-* [Part 2: LCD display module](#part2)
+* [Part 2: LCD screen module](#part2)
 * [Part 3: Library for HD44780 based LCDs](#part3)
 * [Part 4: Stopwatch](#part4)
 * [Part 5: Custom characters](#part5)
@@ -42,7 +42,7 @@ The purpose of the laboratory exercise is to understand the serial control of Hi
    | D[7:4] |  |  |
    | K |  |  |
 
-2. What is the ASCII table? What are the codes/values for uppercase letters `A` to `Z`, lowercase letters `a` to `z`, and numbers `0` to `9` in this table?
+2. What is the ASCII table? What are the codes/values for uppercase letters `A` to `E`, lowercase letters `a` to `e`, and numbers `0` to `4` in this table?
 
    | **Char** | **Decimal** | **Hexadecimal** |
    | :-: | :-: | :-: |
@@ -62,8 +62,7 @@ The purpose of the laboratory exercise is to understand the serial control of Hi
 
 1. Run Git Bash (Windows) of Terminal (Linux), navigate to your working directory, and update local repository.
 
-   > Useful bash and git commands are: `cd` - Change working directory. `mkdir` - Create directory. `ls` - List information about files in the current directory. `pwd` - Print the name of the current working directory. `git status` - Get state of working directory and staging area. `git pull` - Update local repository and working folder.
-   >
+   > **Help:** Useful bash and git commands are `cd` - Change working directory. `mkdir` - Create directory. `ls` - List information about files in the current directory. `pwd` - Print the name of the current working directory. `git status` - Get state of working directory and staging area. `git pull` - Update local repository and working folder.
 
 2. Run Visual Studio Code and create a new PlatformIO project `lab4-lcd` for `Arduino Uno` board and change project location to your local repository folder `Documents/digital-electronics-2`.
 
@@ -73,9 +72,9 @@ The purpose of the laboratory exercise is to understand the serial control of Hi
 
 <a name="part2"></a>
 
-## Part 2: LCD display module
+## Part 2: LCD screen module
 
-**LCD (Liquid Crystal Display)** is an electronic device which is used for display any ASCII text. There are many different screen sizes e.g. 16x1, 16x2, 16x4, 20x4, 40x4 characters and each character is made of 5x8 matrix pixel dots. LCD displays have different LED backlight in yellow-green, white and blue color. LCD modules are mostly available in COB (Chip-On-Board) type. With this method, the controller IC chip or driver (here: HD44780) is directly mounted on the backside of the LCD module itself.
+**LCD (Liquid Crystal Display)** is an electronic device which is used for display any ASCII text. There are many different screen sizes e.g. 16x1, 16x2, 16x4, 20x4, 40x4 characters and each character is made of 5x8 matrix pixel dots. LCD displays have different LED back-light in yellow-green, white and blue color. LCD modules are mostly available in COB (Chip-On-Board) type. With this method, the controller IC chip or driver (here: HD44780) is directly mounted on the backside of the LCD module itself.
 
 The control is based on the Hitachi HD44780 chipset (or a compatible), which is found on most text-based LCDs, and hence the driving software remains the same even for different screen sizes. The driver contains instruction set, character set, and in addition you can also generate your own characters.
 
@@ -83,13 +82,13 @@ The HD44780 is capable of operating in 8-bit mode i.e. faster, but 11 microcontr
 
 In 8-bit mode we send the command/data to the LCD using eight data lines (D0-D7), while in 4-bit mode we use four data lines (D4-D7) to send commands and data. Inside the HD44780 there is still an 8-bit operation so for 4-bit mode, two writes to get 8-bit quantity inside the chip are made (first high four bits and then low four bits with an E clock pulse).
 
-In the lab, the LCD1602 display module is used. The display consists of 2 rows of 16 characters each. It has an LED backlight and it communicates through a parallel interface with only 6 wires (+ 1 signal for backglight control):
+In the lab, the LCD1602 display module is used. The display consists of 2 rows of 16 characters each. It has an LED back-light and it communicates through a parallel interface with only 6 wires (+ 1 signal for backglight control):
 
 * RS - register select. Selects the data or instruction register inside the HD44780
 * E - enable. This loads the data into the HD44780 on the falling edge
-* (at LCD keypad schield, R/W pin is permanently connected to GND)
+* (at LCD keypad shield, R/W pin is permanently connected to GND)
 * D7:4 - Upper nibble used in 4-bit mode
-* K - Backlight cathode
+* K - Back-light cathode
 
 ![LCD 16x2 pinout https://www.circuitbasics.com/](images/lcd_pinout.png)
 
@@ -102,8 +101,7 @@ When a command is given to LCD, the command register (RS = 0) is selected and wh
 > &nbsp;
 > ![Timing of LCD display](images/lcd_capture_C.png)
 >
-> **Answer:** The following signals are read on the first falling edge of the enable, therefore: `RS = 1` (data register) and higher four data bits `D7:4 = 0100`. On the second falling edge of enable, the lower four data bits are `D7:4 = 0011`. The whole byte transmitted to the LCD is therefore `0100_0011` (0x43) and according to the ASCII (American Standard Code for Information Interchange) table, it represents lettre `C`.
->
+> **Answer:** The following signals are read on the first falling edge of the enable, therefore: `RS = 1` (data register) and higher four data bits `D7:4 = 0100`. On the second falling edge of enable, the lower four data bits are `D7:4 = 0011`. The whole byte transmitted to the LCD is therefore `0100_0011` (0x43) and according to the ASCII (American Standard Code for Information Interchange) table, it represents letter `C`.
 >
 > The Hitachi HD44780 has many commands, the most useful for initialization, xy location settings, and print [[1]](https://www.sparkfun.com/datasheets/LCD/HD44780.pdf).
 >
@@ -119,7 +117,7 @@ When a command is given to LCD, the command register (RS = 0) is selected and wh
 
 In the lab, we are using [LCD library for HD44780 based LCDs](http://www.peterfleury.epizy.com/avr-software.html) developed by Peter Fleury.
 
-1. Use the online manual of LCD library (generated by [Doxygen tool](https://www.doxygen.nl/manual/docblocks.html#specialblock)) and add the input parameters and description of the following functions.
+1. Use the online manual of LCD library (generated by [Doxygen tool](https://www.doxygen.nl/manual/docblocks.html#specialblock)) and add input parameters and description of the following functions.
 
    | **Function name** | **Function parameters** | **Description** | **Example** |
    | :-- | :-- | :-- | :-- |
@@ -128,8 +126,6 @@ In the lab, we are using [LCD library for HD44780 based LCDs](http://www.peterfl
    | `lcd_gotoxy` | | | |
    | `lcd_putc` | | | |
    | `lcd_puts` | | | |
-   | `lcd_command` | | | |
-   | `lcd_data` | | | |
 
 2. Copy/paste [template code](https://raw.githubusercontent.com/tomas-fryza/digital-electronics-2/master/labs/04-lcd/main.c) to `LAB4-LCD > src > main.c` source file.
 
@@ -144,12 +140,12 @@ In the lab, we are using [LCD library for HD44780 based LCDs](http://www.peterfl
    │   └── timer.h
    ├── lib
    │   ├── gpio
-   |   │   ├── gpio.c
-   |   |   └── gpio.h
+   │   │   ├── gpio.c
+   │   │   └── gpio.h
    │   └── lcd
-   |       ├── lcd.c
-   |       ├── lcd.h
-   |       └── lcd_definitions.h
+   │       ├── lcd.c
+   │       ├── lcd.h
+   │       └── lcd_definitions.h
    └── src
        └── main.c
    ```
@@ -164,10 +160,9 @@ In the lab, we are using [LCD library for HD44780 based LCDs](http://www.peterfl
 
    ![LCD screenshot](images/screenshot_lcd_init.png)
 
-> The figure above was created by online [LCD Display Screenshot Generator](http://avtanski.net/projects/lcd/).
->
+> **Note:** The figure above was created by online [LCD Display Screenshot Generator](http://avtanski.net/projects/lcd/).
 
-8. Use the PB2 pin to control the backlight of the LCD screen. (Optionaly: Create a new library function for this purpose.)
+8. Use the PB2 pin to control the back-light of the LCD screen. (Optionally: Create a new library function for this purpose.)
 
 <a name="part4"></a>
 
@@ -269,8 +264,7 @@ A custom character is an array of 8 bytes. Each byte (only 5 bits are considered
 
 3. When you finish, always synchronize the contents of your working folder with the local and remote versions of your repository. This way you are sure that you will not lose any of your changes. To do that, use **Source Control (Ctrl+Shift+G)** in Visual Studio Code or git commands.
 
-   > Useful git commands are: `git status` - Get state of working directory and staging area. `git add` - Add new and modified files to the staging area. `git commit` - Record changes to the local repository. `git push` - Push changes to remote repository. `git pull` - Update local repository and working folder. Note that, a brief description of useful git commands can be found [here](https://github.com/tomas-fryza/digital-electronics-1/wiki/Useful-Git-commands) and detailed description of all commands is [here](https://github.com/joshnh/Git-Commands).
-   >
+   > **Help:** Useful git commands are `git status` - Get state of working directory and staging area. `git add` - Add new and modified files to the staging area. `git commit` - Record changes to the local repository. `git push` - Push changes to remote repository. `git pull` - Update local repository and working folder. Note that, a brief description of useful git commands can be found [here](https://github.com/tomas-fryza/digital-electronics-1/wiki/Useful-Git-commands) and detailed description of all commands is [here](https://github.com/joshnh/Git-Commands).
 
 <a name="experiments"></a>
 
