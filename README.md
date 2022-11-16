@@ -11,10 +11,10 @@ The repository contains AVR lab exercises for bachelor course [*Digital Electron
 5. [Analog-to-Digital Converter (ADC)](labs/05-adc)
 6. [Universal Asynchronous Receiver-Transmitter (UART)](labs/06-uart)
 7. [Inter-Integrated Circuits (I2C)](labs/07-i2c)
+8. [Combining C and assembly language](labs/08-asm)
 
 <!--
 9. [C project: General instructions](labs/project)
-10. (Self-study) [Combining C and assembly language](labs/09-asm)
 -->
 
 ## List of examples
@@ -28,7 +28,7 @@ The repository contains AVR lab exercises for bachelor course [*Digital Electron
 The following hardware and software components are mainly used in the lab.
 
 * Devices:
-  * [ATmega328P](https://www.microchip.com/wwwproducts/en/ATmega328P) 8-bit microcontroller: [instruction set](https://www.microchip.com/webdoc/avrassembler/avrassembler.wb_instruction_list.html)
+  * [ATmega328P](https://www.microchip.com/wwwproducts/en/ATmega328P) 8-bit microcontroller: [AVR Instruction Set Manual](https://onlinedocs.microchip.com/pr/GUID-0B644D8F-67E7-49E6-82C9-1B2B9ABE6A0D-en-US-19/index.html)
 
 * Boards and shields:
   * [Schematics](https://oshwlab.com/tomas.fryza/arduino-shields)
