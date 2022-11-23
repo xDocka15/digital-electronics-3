@@ -129,16 +129,16 @@ ISR(TIMER1_OVF_vect)
 {
     static uint8_t value = 0;  // LFSR value
     static uint8_t no_of_values = 0;
-    char string[8];            // String for converting numbers by itoa()
-/*
+    char string[3];            // String for converting numbers by itoa()
+
     // Multiply-and-accumulate Assembly example
-    uint8_t a = 8;
-    uint8_t b = 6;
+    uint8_t a = 2;
+    uint8_t b = 3; 
     value = multiply_accumulate_asm(value, a, b);
     itoa(value, string, 10);
     uart_puts(string);
     uart_puts("\r\n");
-*/
+/*
     // LFSR generator
     // Transmit LFSR value via UART in decimal
     itoa(value, string, 10);
@@ -151,34 +151,11 @@ ISR(TIMER1_OVF_vect)
 
     // If LFSR value is equal to 0 then print length info and start again
     if (value == 0) {
+        itoa(no_of_values, string, 10);
         uart_puts(" Length: ");
-        itoa(no_of_values, string, 10);
-        uart_puts(string);
-        uart_puts("\r\n");
-        no_of_values = 0;
-    }
-}
-
-
-
-
-
-/*
-    // Transmit LFSR value via UART in decimal
-    itoa(value, string, 10);
-    uart_puts(string);
-    uart_puts(" ");
-
-    // Generate one LFSR value and increment number of generated LFSR values
-    value = lfsr4_fibonacci_asm(value);
-    no_of_values++;
-
-    // If LFSR value is equal to 0 then print length info and start again
-    if (value == 0) {
-        uart_puts("\r\nLength of sequence: ");
-        itoa(no_of_values, string, 10);
         uart_puts(string);
         uart_puts("\r\n");
         no_of_values = 0;
     }
 */
+}
